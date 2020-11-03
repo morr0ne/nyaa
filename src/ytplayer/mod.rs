@@ -22,5 +22,5 @@ pub struct PlayerResponse {
     pub streaming_data: StreamingData,
     #[serde(rename = "videoDetails")]
     pub video_details: VideoDetails,
-    pub captions: Captions,
+    pub captions: Option<Captions>,
 }
