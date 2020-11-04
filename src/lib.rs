@@ -1,5 +1,6 @@
-use regex::Regex;
 use anyhow::Result;
+use regex::Regex;
+use std::fs;
 
 mod utils;
 pub mod ytplayer;
@@ -32,11 +33,11 @@ pub async fn get_info(id: &str) -> Result<ytplayer::Config> {
 }
 
 pub async fn download(config: &ytplayer::Config) -> Result<()> {
-    // fs::write(
-    //     "temp/moe.json",
-    //     serde_json::to_string_pretty(&config).unwrap(),
-    // )
-    // .unwrap();
+    fs::write(
+        "temp/moe.json",
+        serde_json::to_string_pretty(&config).unwrap(),
+    )
+    .unwrap();
 
     Ok(())
 }
