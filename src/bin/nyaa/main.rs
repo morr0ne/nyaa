@@ -1,5 +1,5 @@
 use anyhow::Result;
-use clap::{App, Arg, SubCommand};
+use clap::{App, Arg};
 
 #[tokio::main]
 async fn main() -> Result<()> {
