@@ -5,13 +5,6 @@ name: Continuous integration
 jobs:
   ci:
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        rust:
-          - stable
-          - beta
-          - nightly
-          - 1.31.0  # MSRV
 
     steps:
       - uses: actions/checkout@v2
@@ -19,7 +12,7 @@ jobs:
       - uses: actions-rs/toolchain@v1
         with:
           profile: minimal
-          toolchain: ${{ matrix.rust }}
+          toolchain: nightly
           override: true
           components: rustfmt, clippy
 
