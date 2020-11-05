@@ -1,0 +1,17 @@
+[package]
+name = "nyaa"
+version = "0.1.0"
+authors = ["Federico Morrone <flickmor@gmail.com>"]
+edition = "2018"
+
+[dependencies]
+nyaa_core = { path = "../core", version = "0.1"}
+anyhow = "1.0"
+tokio = { version = "0.2", features = ["macros"] }
+clap = "2.33"
+
+[[bin]]
+name = "nyaa"
+path = "main.rs"
+test = false
+doc = false
