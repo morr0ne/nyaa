@@ -490,11 +490,19 @@ version = "0.1.0"
 dependencies = [
  "anyhow",
  "clap",
+ "nyaa_core",
+ "tokio",
+]
+
+[[package]]
+name = "nyaa_core"
+version = "0.1.0"
+dependencies = [
+ "anyhow",
  "regex",
  "reqwest",
  "serde",
  "serde_json",
- "tokio",
 ]
 
 [[package]]

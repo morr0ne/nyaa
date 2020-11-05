@@ -1,0 +1,15 @@
+[package]
+name = "nyaa_core"
+version = "0.1.0"
+authors = ["Federico Morrone <flickmor@gmail.com>"]
+edition = "2018"
+
+[dependencies]
+reqwest = { version = "0.10"}
+anyhow = "1.0"
+serde_json = "1.0"
+serde = { version = "1.0", features = ["derive"] }
+regex = "1.4"
+
+[lib]
+path = "lib.rs"
