@@ -7,7 +7,7 @@ pub struct VideoDetails {
     pub title: String,
     #[serde(rename = "lengthSeconds")]
     pub length_seconds: String,
-    pub keywords: Vec<String>,
+    pub keywords: Option<Vec<String>>,
     #[serde(rename = "channelId")]
     pub channel_id: String,
     #[serde(rename = "isOwnerViewing")]
