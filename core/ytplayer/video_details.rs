@@ -43,4 +43,3 @@ pub struct Thumbnail {
     pub width: u32,
     pub height: u32,
 }
-
