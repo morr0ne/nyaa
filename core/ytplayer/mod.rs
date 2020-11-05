@@ -1,8 +1,8 @@
 use serde::{Deserialize, Serialize};
 
+pub mod captions;
 pub mod streaming_data;
 pub mod video_details;
-pub mod captions;
 
 #[derive(Serialize, Deserialize)]
 pub struct Config {
