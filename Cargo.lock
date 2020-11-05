@@ -449,12 +449,27 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "2a60c7ce501c71e03a9c9c0d35b861413ae925bd979cc7a4e30d060069aaac8d"
 
 [[package]]
+name = "mime"
+version = "0.4.0-a.0"
+source = "git+https://github.com/hyperium/mime.git#938484de95445a2af931515d2b7252612c575da7"
+dependencies = [
+ "mime-parse",
+ "quoted-string",
+ "serde",
+]
+
+[[package]]
+name = "mime-parse"
+version = "0.0.0"
+source = "git+https://github.com/hyperium/mime.git#938484de95445a2af931515d2b7252612c575da7"
+
+[[package]]
 name = "mime_guess"
 version = "2.0.3"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "2684d4c2e97d99848d30b324b00c8fcc7e5c897b7cbb5819b09e7c90e8baf212"
 dependencies = [
- "mime",
+ "mime 0.3.16",
  "unicase",
 ]
 
@@ -540,6 +555,7 @@ name = "nyaa_core"
 version = "0.1.0"
 dependencies = [
  "anyhow",
+ "mime 0.4.0-a.0",
  "regex",
  "reqwest",
  "serde",
@@ -639,12 +655,27 @@ dependencies = [
 ]
 
 [[package]]
+name = "quick-error"
+version = "1.2.3"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "a1d01941d82fa2ab50be1e79e6714289dd7cde78eba4c074bc5a4374f650dfe0"
+
+[[package]]
 name = "quote"
 version = "1.0.7"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "aa563d17ecb180e500da1cfd2b028310ac758de548efdd203e18f283af693f37"
 dependencies = [
  "proc-macro2",
+]
+
+[[package]]
+name = "quoted-string"
+version = "0.2.2"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "9586f8867f39941d8e796c18340a9cb5221a018df021169dc3e61c87d9f5f567"
+dependencies = [
+ "quick-error",
 ]
 
 [[package]]
@@ -740,7 +771,7 @@ dependencies = [
  "js-sys",
  "lazy_static",
  "log",
- "mime",
+ "mime 0.3.16",
  "mime_guess",
  "native-tls",
  "percent-encoding",

@@ -16,7 +16,7 @@ pub enum Formats {
         itag: u32,
         url: String,
         #[serde(rename = "mimeType")]
-        mime_type: String,
+        mime_type: mime::MediaType,
         bitrate: u32,
         width: u32,
         height: u32,
@@ -44,7 +44,7 @@ pub enum Formats {
     CipheredFormat {
         itag: u32,
         #[serde(rename = "mimeType")]
-        mime_type: String,
+        mime_type: mime::MediaType,
         bitrate: u32,
         width: u32,
         height: u32,
@@ -79,7 +79,7 @@ pub enum AdaptiveFormats {
         itag: u32,
         url: String,
         #[serde(rename = "mimeType")]
-        mime_type: String,
+        mime_type: mime::MediaType,
         bitrate: u32,
         width: u32,
         height: u32,
@@ -107,7 +107,7 @@ pub enum AdaptiveFormats {
     CipheredVideo {
         itag: u32,
         #[serde(rename = "mimeType")]
-        mime_type: String,
+        mime_type: mime::MediaType,
         bitrate: u32,
         width: u32,
         height: u32,
@@ -138,7 +138,7 @@ pub enum AdaptiveFormats {
         itag: u32,
         url: String,
         #[serde(rename = "mimeType")]
-        mime_type: String,
+        mime_type: mime::MediaType,
         bitrate: u32,
         #[serde(rename = "initRange")]
         init_range: InitRange,
@@ -170,7 +170,7 @@ pub enum AdaptiveFormats {
     CipheredAudio {
         itag: u32,
         #[serde(rename = "mimeType")]
-        mime_type: String,
+        mime_type: mime::MediaType,
         bitrate: u32,
         #[serde(rename = "initRange")]
         init_range: InitRange,
