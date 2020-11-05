@@ -10,9 +10,9 @@ async fn main() -> Result<()> {
 
     let id = matches.value_of("id").unwrap();
 
-    let config = nyaa::get_info(id).await?;
+    let config = nyaa_core::get_info(id).await?;
 
-    nyaa::download(&config).await?;
+    nyaa_core::download(&config).await?;
 
     Ok(())
 }
