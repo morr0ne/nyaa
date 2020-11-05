@@ -1,4 +1,6 @@
 # nyaa
+[![dependency status](https://deps.rs/repo/github/morr0ne/nyaa/status.svg)](https://deps.rs/repo/github/morr0ne/nyaa)
+[![GitHub license](https://img.shields.io/github/license/morr0ne/nyaa)](https://github.com/morr0ne/nyaa/blob/main/LICENSE)
 
 Experimental youtube downloader written in rust
 It currently doesn't do much and a lot at the same time
