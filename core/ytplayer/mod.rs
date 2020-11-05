@@ -1,11 +1,8 @@
 use serde::{Deserialize, Serialize};
 
-mod streaming_data;
-pub use streaming_data::*;
-mod video_details;
-pub use video_details::*;
-mod captions;
-pub use captions::*;
+pub mod streaming_data;
+pub mod video_details;
+pub mod captions;
 
 #[derive(Serialize, Deserialize)]
 pub struct Config {
@@ -19,8 +16,8 @@ pub struct Args {
 #[derive(Serialize, Deserialize)]
 pub struct PlayerResponse {
     #[serde(rename = "streamingData")]
-    pub streaming_data: StreamingData,
+    pub streaming_data: streaming_data::StreamingData,
     #[serde(rename = "videoDetails")]
-    pub video_details: VideoDetails,
-    pub captions: Option<Captions>,
+    pub video_details: video_details::VideoDetails,
+    pub captions: Option<captions::Captions>,
 }
