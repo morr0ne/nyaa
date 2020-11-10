@@ -10,5 +10,6 @@ members = [
 lto = true
 codegen-units = 1
 incremental = false
-# panic = "abort"
+# Unless proper benchmarks show it's worth the tradeoff this remains off
+# opt-level = "z"
 strip = "symbols"
