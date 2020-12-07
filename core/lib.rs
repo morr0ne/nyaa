@@ -1,43 +1,48 @@
-use anyhow::Result;
-use regex::Regex;
-use std::fs;
+pub mod extractors;
+pub mod media;
 
 mod utils;
-pub mod ytplayer;
 
-pub async fn get_info(id: &str) -> Result<ytplayer::Config> {
-    let full = format!(
-        "https://www.youtube.com/watch?v={}&{}&bpctr={}",
-        id,
-        "hl=en",
-        utils::since_epoch()
-    );
+use anyhow::{anyhow, Result};
+use extractors::Youtube;
+use media::Media;
+use url::Url;
 
-    let page = reqwest::get(&full).await?.text().await?;
+pub struct DownloadOption {}
 
-    let re = Regex::new(r";ytplayer\.config\s*=\s*(\{.+?\});").unwrap();
-    let config = re.captures(&page).unwrap().get(1).unwrap().as_str();
-
-    let config = config
-        .replace("\\\\", "\\")
-        .replace("\\\"", "\"")
-        .replace("}}}}\"}}", "}}}}}}")
-        .replace("\"{\"", "{\"");
-
-    // fs::write("temp/config.json", &config).unwrap();
-    // let config = fs::read_to_string("temp/config.json").unwrap();
-
-    let config: ytplayer::Config = serde_json::from_str(config.as_str()).unwrap();
-
-    Ok(config)
+impl Default for DownloadOption {
+    fn default() -> Self {
+        Self {}
+    }
 }
 
-pub async fn download(config: &ytplayer::Config) -> Result<()> {
-    fs::write(
-        "temp/moe.json",
-        serde_json::to_string_pretty(&config).unwrap(),
-    )
-    .unwrap();
-
+/// Downloads the given media at the specified path
+pub async fn download(media: Media, path: &str, download_option: DownloadOption) -> Result<()> {
     Ok(())
+}
+
+/// Extracts the site info into a more generic type that can either directly used or passed to [download]
+pub async fn get_media(
+    // Ideally the user should be able to load any arbitrary extractor but this isn't a priority
+    // extractors: Vec<Box<dyn extractors::Extractor>>,
+    url: &str,
+) -> Result<Media> {
+    // Check if url is valid otherwise returns the url ParseError but we might want to add a custom error
+    Url::parse(url)?;
+    // The extractor are hardcoded here but we probably want to make them avaible through features
+    let extractors: Vec<Box<dyn extractors::Extractor>> = vec![Box::new(Youtube)];
+
+    let mut media: Option<Media> = None;
+    for extractor in &extractors {
+        let patterns = extractor.patterns();
+        if patterns.is_match(url) {
+            media = Some(extractor.get_media(url).await?);
+            break;
+        }
+    }
+
+    match media {
+        Some(media) => Ok(media),
+        None => Err(anyhow!("Couldn't find an extractor")),
+    }
 }

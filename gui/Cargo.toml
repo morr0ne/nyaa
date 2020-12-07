@@ -1,17 +1,14 @@
 [package]
-name = "nyaa"
+name = "nyaa_gui"
 version = "0.1.0"
 authors = ["Federico Morrone <flickmor@gmail.com>"]
 edition = "2018"
 
 [dependencies]
-anyhow = "1.0.34"
-clap = "2.33.3"
-indicatif = "0.15.0"
+iced = "0.2.0"
 nyaa_core = { path = "../core", version = "0.1" }
-tokio = { version = "0.2.23", features = ["macros"] }
 
 [[bin]]
-name = "nyaa"
+name = "nyaa_gui"
 path = "main.rs"
 doc = false

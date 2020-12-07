@@ -4,6 +4,7 @@ cargo-features = ["strip"]
 members = [
   "cli",
   "core",
+  "gui",
 ]
 
 [profile.release]
@@ -12,4 +13,5 @@ codegen-units = 1
 incremental = false
 # Unless proper benchmarks show it's worth the tradeoff this remains off
 # opt-level = "z"
+# panic = "abort"
 strip = "symbols"
