@@ -4,7 +4,7 @@ pub mod media;
 mod utils;
 
 use anyhow::{anyhow, Result};
-use extractors::Youtube;
+use extractors::{Instagram, Youtube};
 use media::Media;
 use url::Url;
 
@@ -30,8 +30,9 @@ pub async fn get_media(
     // Check if url is valid otherwise returns the url ParseError but we might want to add a custom error
     Url::parse(url)?;
     // The extractor are hardcoded here but we probably want to make them avaible through features
-    let extractors: Vec<Box<dyn extractors::Extractor>> = vec![Box::new(Youtube)];
+    let extractors: Vec<Box<dyn extractors::Extractor>> = vec![Box::new(Youtube),Box::new(Instagram)];
 
+    // Initialize to None so that if no extractors are found an error can be returned
     let mut media: Option<Media> = None;
     for extractor in &extractors {
         let patterns = extractor.patterns();

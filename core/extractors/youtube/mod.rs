@@ -3,7 +3,9 @@ use async_trait::async_trait;
 use initial_data::InitialData;
 use regex::{Regex, RegexSet};
 use std::collections::HashMap;
+use tokio::fs;
 use url::Url;
+
 use ytplayer::PlayerResponse;
 
 use super::{super::utils, Extractor};
@@ -24,7 +26,7 @@ impl Extractor for Youtube {
         // Probably matches youtube urls, needs more testing
         // The only way this could fail is if the regex string is invalid so unwrapping should be safe
         RegexSet::new(&[
-            r"(http:|https:)?(//)?(www\.|m\.)?(youtube.com|youtu.be)/(watch)?(\?v=)?(\S+)?",
+            r"(http:|https:)?(//)?(www.|m.)?(youtube.com|youtu.be)/(watch)?(\?v=)?(\S+)?",
         ])
         .unwrap()
     }
@@ -77,6 +79,8 @@ async fn get_player_response(id: &str) -> Result<ytplayer::PlayerResponse> {
     );
 
     let page = reqwest::get(&url).await?.text().await?;
+    fs::write("temp/y.html", &page).await?;
+
 
     // There are multiple ways to get the player response
     // 99% of the time it's avaible directly in the page via the ytplater config or stored in the window object
@@ -95,8 +99,11 @@ async fn get_player_response(id: &str) -> Result<ytplayer::PlayerResponse> {
             .replace("\\\"", "\"")
             .replace("}}}}\"}}", "}}}}}}")
             .replace("\"{\"", "{\"");
+            
+        fs::write("temp/y.json", &config).await?;
 
-        let youtube_info: ytplayer::Config = serde_json::from_str(config.as_str()).unwrap();
+
+        let youtube_info: ytplayer::Config = serde_json::from_str(&config).unwrap();
         // The only usefull information are contained in the player_response
         youtube_info.args.player_response
     } else if let Some(c) = player_response_re.captures(&page) {

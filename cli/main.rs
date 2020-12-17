@@ -26,6 +26,7 @@ async fn main() -> Result<()> {
         Media::AudioPlaylist(_) => println!("Found audio playlist"),
         Media::ImageAlbum(_) => println!("Found image album"),
         Media::MediaPlaylist(_) => println!("Found media playlist"),
+        Media::User(_) => {}
     }
 
     nyaa_core::download(media, "temp/download", Default::default()).await?;

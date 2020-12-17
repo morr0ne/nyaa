@@ -1,10 +1,10 @@
 // mod crunchyroll;
-// mod instagram;
+mod instagram;
 // mod pixiv;
 // mod soundcloud;
 mod youtube;
 
-// pub use instagram::Instagram;
+pub use instagram::Instagram;
 // pub use pixiv::Pixiv;
 pub use youtube::Youtube;
 

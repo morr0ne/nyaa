@@ -2,17 +2,18 @@ use anyhow::Result;
 use async_trait::async_trait;
 use regex::{Regex, RegexSet};
 use serde::Deserialize;
+use tokio::fs;
 use url::Url;
 
 use super::{super::utils, Extractor};
-use crate::media::Media;
+use crate::media::{image::Image, Media};
 
 pub struct Instagram;
 
 #[async_trait]
 impl Extractor for Instagram {
     fn patterns(&self) -> RegexSet {
-        RegexSet::new(&[r"nothing"]).unwrap()
+        RegexSet::new(&[r"(http:|https:)?(//)?(www.)?(instagram.com)/p/(\S+)/?"]).unwrap()
     }
 
     async fn get_media(&self, url: &str) -> Result<Media> {
@@ -28,8 +29,14 @@ impl Extractor for Instagram {
             .as_str()
             .replace(r"\u0026", "&");
 
+        fs::write("temp/insta.json", &instagram_info).await?;
+
         let instagram_info: InstagramInfo = serde_json::from_str(&instagram_info).unwrap();
-        todo!()
+
+        Ok(Media::Image(Image {
+            title: "".to_string(),
+            description: "".to_string(),
+        }))
     }
 }
 
