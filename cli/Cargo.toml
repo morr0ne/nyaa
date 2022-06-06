@@ -7,7 +7,7 @@ edition = "2018"
 [dependencies]
 nyaa_core = { path = "../core", version = "0.1"}
 anyhow = "1.0"
-tokio = { version = "0.2", features = ["macros"] }
+tokio = { version = "1.8", features = ["macros"] }
 clap = "2.33"
 indicatif = "0.15"
 
